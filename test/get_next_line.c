@@ -6,7 +6,7 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 12:28:10 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/03 22:53:46 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/04 13:21:34 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,14 @@ char	*get_next_line(int fd)
 				free_ptr = str;
 				str = ft_strdup(str + check_new_line);
 				free(free_ptr);
-				if (ft_check_new_line(str))
-					return (ft_while_n_line(new_buffer));
+				return (ft_while_n_line(new_buffer));
 		}
 		read_nb = read(fd, buffer, BUFFER_SIZE);
 		if (read_nb > 0)
 		{
 			buffer[read_nb] = 0;
 			if (str && i++ == 1)
-				new_buffer = ft_strjoin(str, new_buffer);
+				new_buffer = ft_strjoin(new_buffer, str);
 			new_buffer = ft_strjoin(new_buffer, buffer);
 			check_new_line = ft_check_new_line(new_buffer);
 			if (check_new_line)
@@ -111,11 +110,13 @@ char	*get_next_line(int fd)
 				return (ft_while_n_line(new_buffer));
 			}
 		}
-		else if (new_buffer)
+		else if (new_buffer && read_nb != 0)
 			return (new_buffer);
 		else
 			break;
 	}
+	if (new_buffer != NULL)
+		return (new_buffer);
 	return (free(str), NULL);
 }
 
