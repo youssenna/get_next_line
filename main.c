@@ -7,7 +7,7 @@ int main()
 
 	int fd;
 
-	fd = open("get_next_line.h", O_RDONLY | O_CREAT);
+	fd = open("text.txt", O_RDONLY | O_CREAT);
 	char *buffer = get_next_line(fd);
 	while (buffer)
 	{

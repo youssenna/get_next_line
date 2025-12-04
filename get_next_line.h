@@ -10,6 +10,12 @@
 # define BUFFER_SIZE 1
 # endif
 
+typedef struct s_var
+{
+	char *buffer, (*new_buffer), (*free_ptr);
+	int read_nb, (check_new_line), i;
+} t_var;
+
 char	*get_next_line(int fd);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 int		ft_strlen(const char *s);

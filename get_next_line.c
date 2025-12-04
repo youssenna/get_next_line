@@ -6,7 +6,7 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 12:28:10 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/04 16:42:27 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/04 20:22:11 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,56 +69,61 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (sub);
 }
 
+char	*ft_return_if_line(t_var *var, int fd, char **str)
+{
+	var->check_new_line = ft_check_new_line(*str);
+	if (var->check_new_line)
+	{
+			var->new_buffer = ft_strdup(*str);
+			var->free_ptr = *str;
+			*str = ft_strdup(*str + var->check_new_line);
+			free(var->free_ptr);
+			return (free(var->buffer), ft_while_n_line(var->new_buffer));
+	}
+	var->read_nb = read(fd, var->buffer, BUFFER_SIZE);
+	if (var->read_nb > 0)
+	{
+		var->buffer[var->read_nb] = 0;
+		if (*str && (var->i)++ == 1)
+			var->new_buffer = ft_strjoin(var->new_buffer, *str);
+		var->new_buffer = ft_strjoin(var->new_buffer, var->buffer);
+		var->check_new_line = ft_check_new_line(var->new_buffer);
+		if (var->check_new_line)
+		{
+			free(*str);
+			*str = ft_substr(var->new_buffer, var->check_new_line, ft_strlen(var->new_buffer + var->check_new_line));
+			return (free(var->buffer), ft_while_n_line(var->new_buffer));
+		}
+	}
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
+	t_var	var;
+	char	*return_;
 	static char	*str;
 
-	char *buffer, (*new_buffer), (*free_ptr);
-	int read_nb, (check_new_line), i;
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(0, buffer, 0) < 0)
+	var.buffer = malloc(BUFFER_SIZE + 1);
+	if (BUFFER_SIZE <= 0 || fd < 0 || read(0, var.buffer, 0) < 0)
+		return (free(var.buffer), NULL);
+	if (!var.buffer)
 		return (NULL);
-	if (!buffer)
-		return (NULL);
-	i = 1;
-	new_buffer = NULL;
+	var.i = 1;
+	var.new_buffer = NULL;
 	while (1)
 	{
-		check_new_line = ft_check_new_line(str);
-		if (check_new_line)
-		{
-				new_buffer = ft_strdup(str);
-				free_ptr = str;
-				str = ft_strdup(str + check_new_line);
-				free(free_ptr);
-				return (free(buffer), ft_while_n_line(new_buffer));
-		}
-		read_nb = read(fd, buffer, BUFFER_SIZE);
-		if (read_nb > 0)
-		{
-			buffer[read_nb] = 0;
-			if (str && i++ == 1)
-				new_buffer = ft_strjoin(new_buffer, str);
-			new_buffer = ft_strjoin(new_buffer, buffer);
-			check_new_line = ft_check_new_line(new_buffer);
-			if (check_new_line)
-			{
-				// free_ptr = new_buffer;
-				// new_buffer = ft_strdup(new_buffer);
-				// free(free_ptr);
-				free(str);
-				str = ft_substr(new_buffer, check_new_line, ft_strlen(new_buffer + check_new_line));
-				return (free(buffer), ft_while_n_line(new_buffer));
-			}
-		}
-		else if (new_buffer && read_nb != 0)
-			return (new_buffer);
+		return_ = ft_return_if_line(&var, fd, &str);
+		if (return_ && var.read_nb > 0)
+			return (return_);
+		else if ((var.new_buffer && var.read_nb != 0))
+			return (free(var.buffer), var.new_buffer);
 		else
 			break;
 	}
-	if (new_buffer != NULL)
-		return (new_buffer);
-	return (NULL);
+	if ((var.new_buffer && var.read_nb != 0))
+			return (free(var.buffer), var.new_buffer);
+	return (free(str), free(var.buffer), NULL);
 }
 
 
