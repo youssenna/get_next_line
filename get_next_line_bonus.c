@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/03 12:28:10 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/07 16:31:53 by yousenna         ###   ########.fr       */
+/*   Created: 2025/12/07 13:10:13 by yousenna          #+#    #+#             */
+/*   Updated: 2025/12/07 16:46:49 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,26 +99,27 @@ char	*ft_get_line(char *buffer, char **static_var, int read_nb)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[1024];
 	t_var		var;
 
 	var.buff = malloc(BUFFER_SIZE + 1);
-	if (!var.buff || BUFFER_SIZE <= 0 || fd < 0 || read(fd, var.buff, 0) < 0)
+	if (!var.buff || BUFFER_SIZE <= 0 || fd < 0 || read(fd, var.buff, 0) < 0
+		|| fd < 1024)
 		return (free(var.buff), NULL);
 	var.read_nb = 1;
 	while (var.read_nb > 0)
 	{
 		if (var.read_nb <= 0)
 			break ;
-		if (ft_check_new_line(str))
+		if (ft_check_new_line(str[fd]))
 		{
-			var.tmp = str;
-			str = ft_strdup(str + ft_check_new_line(str));
+			var.tmp = str[fd];
+			str[fd] = ft_strdup(str[fd] + ft_check_new_line(str[fd]));
 			return (free(var.buff), ft_while_n_line(var.tmp));
 		}
 		var.read_nb = read(fd, var.buff, BUFFER_SIZE);
 		var.buff[var.read_nb] = 0;
-		var.tmp = ft_get_line(var.buff, &str, var.read_nb);
+		var.tmp = ft_get_line(var.buff, &str[fd], var.read_nb);
 		if (var.tmp)
 			return (free(var.buff), var.tmp);
 	}
