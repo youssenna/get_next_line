@@ -6,7 +6,7 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 16:41:23 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/07 16:47:00 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/10 15:48:12 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 100
 # endif
 
 char	*get_next_line(int fd);

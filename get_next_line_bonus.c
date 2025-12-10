@@ -6,7 +6,7 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 13:10:13 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/07 16:46:49 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/10 16:50:42 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ char	*ft_get_line(char *buffer, char **static_var, int read_nb)
 	}
 	else if (read_nb < BUFFER_SIZE)
 	{
-		if (*static_var && **static_var)
-			return (free(tmp), tmp = *static_var, *static_var = NULL, tmp);
 		free(*static_var);
 		*static_var = NULL;
+		if (tmp && *tmp)
+			return (tmp);
 		return (free(tmp), NULL);
 	}
 	else if (tmp)
@@ -104,13 +104,11 @@ char	*get_next_line(int fd)
 
 	var.buff = malloc(BUFFER_SIZE + 1);
 	if (!var.buff || BUFFER_SIZE <= 0 || fd < 0 || read(fd, var.buff, 0) < 0
-		|| fd < 1024)
+		|| fd >= 1024)
 		return (free(var.buff), NULL);
 	var.read_nb = 1;
 	while (var.read_nb > 0)
 	{
-		if (var.read_nb <= 0)
-			break ;
 		if (ft_check_new_line(str[fd]))
 		{
 			var.tmp = str[fd];
@@ -118,6 +116,8 @@ char	*get_next_line(int fd)
 			return (free(var.buff), ft_while_n_line(var.tmp));
 		}
 		var.read_nb = read(fd, var.buff, BUFFER_SIZE);
+		if (var.read_nb < 0)
+			break ;
 		var.buff[var.read_nb] = 0;
 		var.tmp = ft_get_line(var.buff, &str[fd], var.read_nb);
 		if (var.tmp)
