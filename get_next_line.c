@@ -6,7 +6,7 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 12:28:10 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/10 17:31:14 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/10 22:41:25 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,6 @@ char	*ft_while_n_line(char *str)
 	return (str);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
-{
-	char	*sub;
-	size_t	s_len;
-
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start > s_len)
-	{
-		sub = ft_strdup("");
-		if (!sub)
-			return (NULL);
-		return (sub);
-	}
-	if (len > s_len - start)
-		len = s_len - start;
-	sub = malloc(len + 1);
-	if (!sub)
-		return (NULL);
-	ft_strlcpy(sub, s + start, len + 1);
-	return (sub);
-}
-
 char	*ft_get_line(char *buffer, char **static_var, int read_nb)
 {
 	char	*tmp;
@@ -103,7 +79,7 @@ char	*get_next_line(int fd)
 	t_var		var;
 
 	var.buff = malloc(BUFFER_SIZE + 1);
-	if (!var.buff || BUFFER_SIZE <= 0 || fd < 0 || read(fd, var.buff, 0) < 0)
+	if (!var.buff || BUFFER_SIZE <= 0 || fd < 0)
 		return (free(var.buff), NULL);
 	var.read_nb = 1;
 	while (var.read_nb > 0)

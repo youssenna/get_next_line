@@ -6,7 +6,7 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 16:41:23 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/10 15:48:12 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/10 22:40:52 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*ft_strdup(char *str);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 char	*ft_get_line(char *buffer, char **static_var, int read_nb);
-char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_while_n_line(char *str);
 int		ft_check_new_line(char *str);
 
