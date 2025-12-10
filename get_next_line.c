@@ -6,7 +6,7 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 12:28:10 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/10 16:48:59 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:31:14 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*get_next_line(int fd)
 	t_var		var;
 
 	var.buff = malloc(BUFFER_SIZE + 1);
-	if (!var.buff || BUFFER_SIZE <= 0 || fd < 0	|| read(fd, var.buff, 0) < 0)
+	if (!var.buff || BUFFER_SIZE <= 0 || fd < 0 || read(fd, var.buff, 0) < 0)
 		return (free(var.buff), NULL);
 	var.read_nb = 1;
 	while (var.read_nb > 0)
