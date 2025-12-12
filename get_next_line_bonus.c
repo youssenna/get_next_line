@@ -6,11 +6,11 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 13:10:13 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/11 22:57:30 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/12 15:51:39 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_check_new_line(char *str)
 {
