@@ -6,15 +6,15 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 13:10:13 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/10 22:40:10 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/11 22:57:30 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_check_new_line(char *str)
+size_t	ft_check_new_line(char *str)
 {
-	int	i;
+	size_t	i;
 
 	if (!str)
 		return (0);
@@ -30,7 +30,7 @@ int	ft_check_new_line(char *str)
 
 char	*ft_while_n_line(char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -45,7 +45,7 @@ char	*ft_while_n_line(char *str)
 	return (str);
 }
 
-char	*ft_get_line(char *buffer, char **static_var, int read_nb)
+char	*ft_get_line(char *buffer, char **static_var, ssize_t read_nb)
 {
 	char	*tmp;
 
@@ -78,7 +78,8 @@ char	*get_next_line(int fd)
 	static char	*str[1024];
 	t_var		var;
 
-	var.buff = malloc(BUFFER_SIZE + 1);
+	var.total_len = (size_t)BUFFER_SIZE + 1;
+	var.buff = malloc(var.total_len);
 	if (!var.buff || BUFFER_SIZE <= 0 || fd < 0 || fd >= 1024)
 		return (free(var.buff), NULL);
 	var.read_nb = 1;

@@ -6,7 +6,7 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 16:40:47 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/10 22:40:16 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/12 11:06:16 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,20 @@
 
 typedef struct s_var
 {
-	int		read_nb;
+	ssize_t	read_nb;
 	char	*buff;
 	char	*tmp;
+	ssize_t	total_len;
 }			t_var;
 
 char		*get_next_line(int fd);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
-int			ft_strlen(const char *s);
+size_t		ft_strlen(const char *s);
 char		*ft_strdup(char *str);
 char		*ft_strjoin(char *s1, char *s2);
 size_t		ft_strlcat(char *dest, const char *src, size_t size);
-char		*ft_get_line(char *buffer, char **static_var, int read_nb);
+char		*ft_get_line(char *buffer, char **static_var, ssize_t read_nb);
 char		*ft_while_n_line(char *str);
-int			ft_check_new_line(char *str);
+size_t		ft_check_new_line(char *str);
 
 #endif

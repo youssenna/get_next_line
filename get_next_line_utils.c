@@ -6,15 +6,15 @@
 /*   By: yousenna <yousenna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 16:40:12 by yousenna          #+#    #+#             */
-/*   Updated: 2025/12/07 16:40:13 by yousenna         ###   ########.fr       */
+/*   Updated: 2025/12/11 22:51:12 by yousenna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	int	count;
+	size_t	count;
 
 	count = 0;
 	if (s == NULL)
